@@ -4,6 +4,7 @@ const isBinary = require('isbinaryfile');
 
 //const gulp = require('gulp');
 const detectEncoding = require('detect-character-encoding');
+const iconLite = require('iconv-lite');
 const Iconv = require('iconv').Iconv;
 const glob = require('glob');
 
@@ -14,7 +15,7 @@ let binaryFiles = [];
 let nonBinaryFiles = [];
 
 
-glob('www/public_html/_chk/**/!(*.gif|*.png|*.jpg|*.jpeg|*.mp4|*.JPG|*.bmp|*.ico|*.ttf|*.woff|*.woff2|*.eot|*.otf|*.swf|*.fla|*.pdf|*.p12|*.zip|*.pptx|*.db)', {nodir: true}, (error, files) => {
+glob('www/public_html/**/!(*.gif|*.png|*.jpg|*.jpeg|*.mp4|*.JPG|*.bmp|*.ico|*.ttf|*.woff|*.woff2|*.eot|*.otf|*.swf|*.fla|*.pdf|*.p12|*.zip|*.pptx|*.db)', {nodir: true}, (error, files) => {
     const rootpath = path.resolve(process.cwd());
 
     files.map(file => {
@@ -40,18 +41,25 @@ glob('www/public_html/_chk/**/!(*.gif|*.png|*.jpg|*.jpeg|*.mp4|*.JPG|*.bmp|*.ico
         }
     });
 
-    for(let encode in fileList) {
-        if (encode !== 'UTF-8') {
-            const iconv = new Iconv(encode, 'UTF-8');
-            fileList[encode].map((file) => {
-                var buffer = fs.readFileSync(file);
-                fs.writeFileSync(file, iconv.convert(buffer));
-//                    .pipe(iconv.decodeStream(encode))
-//                    .pipe(iconv.encodeStream('UTF-8', {stripBOM: false}))
+
+//    for(let encode in fileList) {
+//        if (encode !== 'UTF-8') {
+//            let encoding = encode === "ISO-8859-1" ? 'latin1' : encode;
+//
+//            const iconv = new Iconv(encoding, 'UTF-8');
+//            fileList[encode].map((file) => {
+//                var buffer = fs.readFileSync(file);
+//
+//                const stream = fs.createReadStream(file)
+//                    .pipe(iconLite.decodeStream(encoding))
+//                    .pipe(iconLite.encodeStream('UTF-8'))
 //                    .pipe(fs.createWriteStream(file));
-            });
-        }
-    }
+//
+//                stream.write(iconv.convert(buffer).toString('utf-8'));
+//
+//            });
+//        }
+//    }
 //    fileList.map((files) => {
 //        console.log(files);
 //    });
