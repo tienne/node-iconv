@@ -1,0 +1,21 @@
+{
+  "name": "mindaweb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "gulp": "gulp",
+    "docker:up": "docker-compose up --build",
+    "docker:down": "docker-compose down"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "detect-character-encoding": "^0.5.1",
+    "glob": "^7.1.2",
+    "gulp": "^3.9.1",
+    "iconv": "^2.3.0",
+    "iconv-lite": "^0.4.19",
+    "isbinaryfile": "^3.0.2"
+  }
+}
